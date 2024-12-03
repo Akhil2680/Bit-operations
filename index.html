@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary & Decimal Operations - Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .tile {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #333;
+            word-wrap: break-word;
+        }
+        
+        .header {
+            width: 100%;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 18px;
+            }
+            button {
+                font-size: 14px;
+            }
+            .header {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        Binary & Decimal Operations
+    </div>
+
+    <div class="container">
+
+        <div class="tile">
+            <h2>Binary to Decimal</h2>
+            <input type="text" id="binaryInput" placeholder="Enter binary number">
+            <button onclick="convertBinaryToDecimal()">Convert</button>
+            <div class="result" id="binaryToDecimalResult"></div>
+        </div>
+
+
+        <div class="tile">
+            <h2>Decimal to Binary</h2>
+            <input type="text" id="decimalInput" placeholder="Enter decimal number">
+            <button onclick="convertDecimalToBinary()">Convert</button>
+            <div class="result" id="decimalToBinaryResult"></div>
+        </div>
+
+
+        <div class="tile">
+            <h2>Toggle All Bits</h2>
+            <input type="text" id="toggleInput" placeholder="Enter decimal number">
+            <button onclick="toggleAllBits()">Toggle</button>
+            <div class="result" id="toggleResult"></div>
+        </div>
+
+
+        <div class="tile">
+            <h2>Count Set Bits</h2>
+            <input type="text" id="countSetBitsInput" placeholder="Enter decimal number">
+            <button onclick="countSetBits()">Count</button>
+            <div class="result" id="countSetBitsResult"></div>
+        </div>
+
+
+        <div class="tile">
+            <h2>Count Unset Bits</h2>
+            <input type="text" id="countUnsetBitsInput" placeholder="Enter decimal number">
+            <button onclick="countUnsetBits()">Count</button>
+            <div class="result" id="countUnsetBitsResult"></div>
+        </div>
+    </div>
+
+    <script>
+        function convertBinaryToDecimal() {
+            const binaryInput = document.getElementById("binaryInput").value;
+            if (!/^[01]+$/.test(binaryInput)) {
+                document.getElementById("binaryToDecimalResult").innerText = "Please enter a valid binary number.";
+                return;
+            }
+            const decimal = parseInt(binaryInput, 2);
+            document.getElementById("binaryToDecimalResult").innerText = `Decimal equivalent is: ${decimal}`;
+        }
+
+
+        function convertDecimalToBinary() {
+            const decimalInput = parseInt(document.getElementById("decimalInput").value, 10);
+            if (isNaN(decimalInput) || decimalInput < 0) {
+                document.getElementById("decimalToBinaryResult").innerText = "Please enter a valid decimal number.";
+                return;
+            }
+            const binary = decimalInput.toString(2);
+            document.getElementById("decimalToBinaryResult").innerText = `Binary equivalent is: ${binary}`;
+        }
+
+
+        function toggleAllBits() {
+            const decimalInput = parseInt(document.getElementById("toggleInput").value, 10);
+            if (isNaN(decimalInput) || decimalInput < 0) {
+                document.getElementById("toggleResult").innerText = "Please enter a valid decimal number.";
+                return;
+            }
+            const binary = decimalInput.toString(2);
+            const toggled = binary
+                .split("")
+                .map(bit => (bit === "1" ? "0" : "1"))
+                .join("");
+            document.getElementById("toggleResult").innerText = `Binary: ${binary}, Toggled: ${toggled}`;
+        }
+
+
+        function countSetBits() {
+            const decimalInput = parseInt(document.getElementById("countSetBitsInput").value, 10);
+            if (isNaN(decimalInput) || decimalInput < 0) {
+                document.getElementById("countSetBitsResult").innerText = "Please enter a valid decimal number.";
+                return;
+            }
+            const binary = decimalInput.toString(2);
+            const setBitsCount = binary.split("").filter(bit => bit === "1").length;
+            document.getElementById("countSetBitsResult").innerText = `Binary: ${binary}, Set bits: ${setBitsCount}`;
+        }
+
+
+        function countUnsetBits() {
+            const decimalInput = parseInt(document.getElementById("countUnsetBitsInput").value, 10);
+            if (isNaN(decimalInput) || decimalInput < 0) {
+                document.getElementById("countUnsetBitsResult").innerText = "Please enter a valid decimal number.";
+                return;
+            }
+            const binary = decimalInput.toString(2);
+            const unsetBitsCount = binary.split("").filter(bit => bit === "0").length;
+            document.getElementById("countUnsetBitsResult").innerText = `Binary: ${binary}, Unset bits: ${unsetBitsCount}`;
+        }
+    </script>
+</body>
+
+</html>
